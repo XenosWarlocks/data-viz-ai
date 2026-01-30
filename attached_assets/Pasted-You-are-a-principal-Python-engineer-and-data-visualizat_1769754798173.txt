@@ -1,0 +1,253 @@
+You are a principal Python engineer and data-visualization product designer. Your task is to design and implement a project-based, interactive Python data visualization application with a clear user workflow, dynamic graph suggestions, and real-time updates.
+
+The output must resemble a usable data exploration tool, not a one-off visualization script.
+
+🔹 Product-Level User Flow (MANDATORY)
+
+The app must strictly follow this lifecycle:
+
+Create Project
+
+Add Column(s)
+
+Add Data to Column(s)
+
+Automatically Suggest Graphs
+
+Render Selected Graph(s)
+
+Iterate (add more columns/data → refresh suggestions & graphs)
+
+Each step must build on the previous one.
+
+🔹 1. Project System
+
+A Project is the top-level container.
+
+Each project contains:
+
+Metadata (name, description)
+
+One or more columns
+
+Visualization state (selected graphs, settings)
+
+Projects exist in memory only (no database).
+
+🔹 2. Column Management
+Column Definition
+
+Columns are created explicitly by the user.
+
+Each column has:
+
+Name
+
+Data type (default: categorical)
+
+List of values (strings or numbers)
+
+Column Actions
+
+Users must be able to:
+
+Add a column
+
+Rename a column
+
+Delete a column
+
+Select an active column
+
+🔹 3. Data Entry & Processing
+Data Input
+
+Users add data into a selected column.
+
+Data can be:
+
+Entered manually (one per line or comma-separated)
+
+Edited after entry
+
+Processing Rules
+
+Normalize categorical values:
+
+Case-insensitive
+
+Trim whitespace
+
+Maintain raw values + normalized values internally.
+
+🔹 4. Distribution & Term Management
+
+For categorical columns:
+
+Compute frequency distributions.
+
+Display terms in descending frequency order.
+
+Term Merging
+
+Users can:
+
+Select multiple terms
+
+Merge them into one canonical term
+
+Merging must:
+
+Instantly recompute distributions
+
+Trigger graph updates
+
+Be reversible (reset merges)
+
+🔹 5. Intelligent Graph Suggestions (CORE FEATURE)
+
+The system must suggest graphs automatically based on:
+
+Number of columns
+
+Column data types
+
+Data distribution characteristics
+
+Examples:
+
+1 categorical column → bar chart, pie chart
+
+Large category count → horizontal bar, top-N bar
+
+2 categorical columns → grouped bar chart
+
+Categorical + numeric → bar + aggregation
+
+Multiple columns → comparison views
+
+Graph Suggestion Rules:
+
+Suggestions must update automatically when:
+
+A column is added
+
+Data is added/edited
+
+Terms are merged
+
+Each suggestion must include:
+
+Graph type
+
+Why it’s recommended
+
+🔹 6. Graph Rendering & Customization
+Default Behavior
+
+After the first column + data:
+
+Render a default suggested graph automatically
+
+Users can switch between suggested graphs.
+
+Customization Options
+
+Users must be able to:
+
+Choose graph type
+
+Select column(s) to visualize
+
+Sort ascending / descending
+
+Limit to top-N categories
+
+Adjust titles and labels
+
+🔹 7. Multi-Column Iteration Flow
+
+When users:
+
+Add another column
+
+Add data to it
+
+The system must:
+
+Re-evaluate all columns
+
+Update graph suggestions
+
+Preserve existing graphs unless the user changes them
+
+Offer new comparison graphs when appropriate
+
+🔹 8. Technical Constraints
+Tech Stack
+
+Language: Python
+
+Visualization: Plotly (preferred for interactivity) or Matplotlib/Seaborn
+
+UI Framework: Streamlit or Dash (choose one and justify)
+
+Architecture Requirements
+
+Modular design:
+
+Project model
+
+Column model
+
+Distribution engine
+
+Graph suggestion engine
+
+Rendering layer
+
+No monolithic scripts.
+
+🔹 9. UX Expectations
+
+Real-time updates (no app restart).
+
+Clear visual indicators for:
+
+Active project
+
+Active column
+
+Suggested vs selected graphs
+
+Minimal user friction: sensible defaults everywhere.
+
+🔹 10. Deliverables
+
+Fully functional Python app.
+
+Explanation of:
+
+Project → column → data → graph flow
+
+Graph suggestion logic
+
+How updates propagate through the system
+
+Clear instructions to:
+
+Run the app
+
+Add new graph types
+
+Extend suggestion logic
+
+🔹 Success Criteria
+
+The app is successful if:
+
+A user can start from zero and intuitively reach meaningful graphs.
+
+Graphs adapt automatically as data evolves.
+
+The structure feels scalable, not hacked together.
